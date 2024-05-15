@@ -1,8 +1,9 @@
 package song.pg.approval;
 
 import song.pg.approval.models.RequestPaymentApproval;
+import song.pg.approval.models.common.CommonResponse;
 
 public interface ApprovalService
 {
-  String approval(RequestPaymentApproval requestPaymentApproval);
+  CommonResponse<String> approval(RequestPaymentApproval requestPaymentApproval);
 }

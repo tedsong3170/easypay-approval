@@ -6,6 +6,7 @@ import org.springframework.web.client.RestClient;
 import song.pg.approval.ApprovalService;
 import song.pg.approval.models.RequestPaymentApproval;
 import song.pg.approval.models.ResponsePaymentApproval;
+import song.pg.approval.models.common.CommonResponse;
 import song.pg.approval.utils.UUIDGenerator;
 
 @Service
@@ -13,7 +14,7 @@ import song.pg.approval.utils.UUIDGenerator;
 public class ApprovalServiceImpl implements ApprovalService
 {
   @Override
-  public String approval(RequestPaymentApproval requestPaymentApproval)
+  public CommonResponse<String> approval(RequestPaymentApproval requestPaymentApproval)
   {
     /**
      * 1. 토큰 검증 및 카드정보 요청
@@ -32,9 +33,17 @@ public class ApprovalServiceImpl implements ApprovalService
       //승인처리
       log.info("승인 카드정보 : {}", response.getData().toString());
 
-      return UUIDGenerator.generateUUID(); //승인번호
+      return new CommonResponse<>(
+        "200",
+        "성공",
+        UUIDGenerator.generateUUID() //승인번호
+      );
     }
 
-    return "";
+    return new CommonResponse<>(
+      response.getCode(),
+      response.getMessage(),
+      null
+    );
   }
 }

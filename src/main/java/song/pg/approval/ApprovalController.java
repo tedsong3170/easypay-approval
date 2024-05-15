@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import song.pg.approval.models.RequestPaymentApproval;
+import song.pg.approval.models.common.CommonResponse;
 
 @RestController
 @RequestMapping("/api/approval")
@@ -18,7 +19,7 @@ public class ApprovalController
   private final ApprovalService approvalService;
 
   @PostMapping("/v1")
-  public ResponseEntity<String> approval(
+  public ResponseEntity<CommonResponse<String>> approval(
     @RequestBody final RequestPaymentApproval requestPaymentApproval
   )
   {
